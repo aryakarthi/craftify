@@ -4,4 +4,6 @@ export { default as Home } from "./Home";
 export { default as Dashboard } from "./Dashboard";
 export { default as PreviewItem } from "./PreviewItem";
 export { default as Favourites } from "./Favourites";
+export { default as Checkout } from "./Checkout";
+
 export { default as Layout } from "./Layout";

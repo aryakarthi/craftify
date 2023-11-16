@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Dashboard, Favourites, Layout, Login, Main, PreviewItem } from "./pages";
+import { Checkout, Dashboard, Favourites, Layout, Login, Main, PreviewItem } from "./pages";
 
 import { getAuth } from "firebase/auth";
 import { app } from "./config/firebaseConfig";
@@ -61,6 +61,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/preview/:id" element={<PreviewItem />} />
           <Route path="/favourites" element={<Favourites />} />
+          <Route path="/checkout" element={<Checkout />} />
+
           <Route
             path="/dashboard/*"
             element={<Dashboard />}

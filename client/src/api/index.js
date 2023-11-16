@@ -145,3 +145,53 @@ export const removeItemsFromFav = async (user_id, product_id) => {
     return null;
   }
 };
+
+// create new order
+export const createOrder = async (data) => {
+  try {
+    const res = await axios.post(`${baseURL}/api/products/neworder`, {
+      ...data,
+    });
+    return res.data.data;
+  } catch (err) {
+    return null;
+  }
+};
+
+// get all orders
+export const getAllOrders = async () => {
+  try {
+    const res = await axios.get(`${baseURL}/api/products/allorders`);
+    return res.data.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+// update the order status
+export const updateOrderStatus = async (order_id, status) => {
+  try {
+    const res = await axios.post(
+      `${baseURL}/api/products/updateOrderStatus/${order_id}`,
+      null,
+      { params: { status: status } }
+    );
+    return res.data.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+// update the order status
+export const updatePayStatus = async (order_id, paymentStatus) => {
+  try {
+    const res = await axios.post(
+      `${baseURL}/api/products/updatePayStatus/${order_id}`,
+      null,
+      { params: { paymentStatus: paymentStatus } }
+    );
+    return res.data.data;
+  } catch (error) {
+    return null;
+  }
+};

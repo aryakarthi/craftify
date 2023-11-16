@@ -7,6 +7,7 @@ export { default as ItemCarousel } from "./ItemCarousel";
 export { default as StarRatings } from "./StarRatings";
 export { default as OverallRatings } from "./OverallRatings";
 export { default as Cart } from "./Cart";
+export { default as CheckoutInput } from "./CheckoutInput";
 
 export { default as DBSidebar } from "./dashboard/DBSidebar";
 export { default as DBMain } from "./dashboard/DBMain";

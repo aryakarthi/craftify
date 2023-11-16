@@ -23,6 +23,7 @@ import {
   MdViewList,
   MdSettings,
   MdLibraryAdd,
+  MdDeleteSweep,
 } from "react-icons/md";
 import {
   BsToggles2,
@@ -64,6 +65,7 @@ export {
   MdSettings,
   MdViewList,
   MdLibraryAdd,
+  MdDeleteSweep,
   BsToggles2,
   BsFillBellFill,
   BsExclamationTriangleFill,
