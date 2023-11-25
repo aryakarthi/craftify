@@ -34,39 +34,47 @@ const Favourites = () => {
         <h2 className="font-bold text-3xl text-zinc-800 mb-4 ">
           My Favourites
         </h2>
-        <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
-          {favItems &&
-            favItems?.length > 0 &&
-            favItems?.map((item, i) => (
-              <div
-                key={i}
-                className="flex gap-2 rounded-lg bg-white p-2 h-full"
-              >
-                <img
-                  className="w-16 h-16 md:w-24 md:h-24 object-contain block rounded-md"
-                  src={item?.imageURLs[0]}
-                  alt=""
-                />
-                <div className="flex w-full flex-col overflow-hidden relative">
-                  <p className="font-bold text-sm md:text-md whitespace-nowrap ">
-                    {item?.product_name}
-                  </p>
-                  <p className="font-medium text-zinc-600 text-sm md:text-md">
-                    {item?.product_category}
-                  </p>
-                  <p className="font-medium text-sm md:text-md">
-                    Rs. {item?.product_price}
-                  </p>
-                  <div className="absolute bottom-1 right-1 z-20 cursor-pointer">
-                    <MdDelete
-                      className="text-xl md:text-2xl overflow-hidden text-red-500"
-                      onClick={() => removeFromFav(item?.productId)}
-                    />
+        {favItems && favItems?.length > 0 ? (
+          <>
+            <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+              {favItems?.map((item, i) => (
+                <div
+                  key={i}
+                  className="flex gap-2 rounded-lg bg-white p-2 h-full"
+                >
+                  <img
+                    className="w-16 h-16 md:w-24 md:h-24 object-contain block rounded-md"
+                    src={item?.imageURLs[0]}
+                    alt=""
+                  />
+                  <div className="flex w-full flex-col overflow-hidden relative">
+                    <p className="font-bold text-sm md:text-md whitespace-nowrap ">
+                      {item?.product_name}
+                    </p>
+                    <p className="font-medium text-zinc-600 text-sm md:text-md">
+                      {item?.product_category}
+                    </p>
+                    <p className="font-medium text-sm md:text-md">
+                      Rs. {item?.product_price}
+                    </p>
+                    <div className="absolute bottom-1 right-1 z-20 cursor-pointer">
+                      <MdDelete
+                        className="text-xl md:text-2xl overflow-hidden text-red-500"
+                        onClick={() => removeFromFav(item?.productId)}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-        </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <h1 className="text-3xl text-headingColor font-bold text-center">
+              No Favourite Items Found!
+            </h1>
+          </>
+        )}
       </div>
     </div>
   );

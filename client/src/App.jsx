@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Checkout, Dashboard, Favourites, Layout, Login, Main, PreviewItem } from "./pages";
+import {
+  Checkout,
+  Dashboard,
+  Favourites,
+  Layout,
+  Login,
+  Main,
+  OrderSuccess,
+  Orders,
+  PreviewItem,
+} from "./pages";
 
 import { getAuth } from "firebase/auth";
 import { app } from "./config/firebaseConfig";
@@ -62,6 +72,9 @@ const App = () => {
           <Route path="/preview/:id" element={<PreviewItem />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/orders" element={<Orders />} />
+
 
           <Route
             path="/dashboard/*"

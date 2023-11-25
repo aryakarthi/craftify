@@ -63,7 +63,7 @@ const DBSidebar = () => {
     <div className="hidden md:block">
       <div
         className={` ${
-          toggleSidebar ? "w-72" : "w-20 "
+          toggleSidebar ? "w-48" : "w-20 "
         } bg-slate-300 h-screen p-5 pt-8 relative duration-300`}
       >
         <BiChevronLeft

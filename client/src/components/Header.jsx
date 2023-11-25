@@ -43,7 +43,7 @@ const Header = ({ location }) => {
       <div className="w-full h-full container">
         <div className="h-24 flex items-center justify-between gap-4 md:px-2 ">
           <NavLink to={"/"} className="flex items-center justify-center gap-2">
-            <img src={logo} alt="Logo" className="w-16 rounded-full" />
+            <img src={logo} alt="Logo" className="w-12 rounded-full" />
             <h3 className="text-red-500 font-semibold text-2xl relative mb-2">
               SARAH
               <span className="after:content-['CREATIONS'] after:absolute after:-bottom-4 after:left-0 text-[15px] text-black font-semibold"></span>
@@ -142,7 +142,7 @@ const Header = ({ location }) => {
                           Profile
                         </Link>
                         <Link
-                          to={"/user-orders"}
+                          to={"/orders"}
                           className="hover:text-red-500 text-xl text-textColor"
                         >
                           Orders
@@ -177,7 +177,7 @@ const Header = ({ location }) => {
           </nav>
         </div>
         {path === "/" && (
-          <div className="h-16 flex items-center gap-4 md:px-2">
+          <div className="h-12 flex items-center gap-4 md:px-2">
             <motion.div
               {...btnClick}
               className="px-2 py-2 text-xl font-semibold cursor-pointer rounded-md bg-primary text-textColor"

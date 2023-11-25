@@ -20,7 +20,7 @@ const DBMain = () => {
   return (
     <div
       className={`${
-        toggleSidebar ? "w-[calc(100%_-_18rem)]" : "w-[calc(100%_-_5rem)]"
+        toggleSidebar ? "w-[calc(100%_-_12rem)]" : "w-[calc(100%_-_5rem)]"
       }  h-full flex flex-col p-4 md:p-10 flex-1`}
     >
       <DBHeader />

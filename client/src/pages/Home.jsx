@@ -8,6 +8,7 @@ const Home = () => {
   const products = useSelector((state) => state.products);
   const category = useSelector((data) => data.category);
   const favItems = useSelector((state) => state?.favItems);
+  const orders = useSelector((state) => state?.orders);
 
   return (
     <div className="container">

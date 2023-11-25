@@ -1,20 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-// import Button from "../Button";
+import { ModalButton } from "../components";
+import { useDispatch } from "react-redux";
 
 const Modal = ({
   isOpen,
-  onClose,
+  closeModal,
+  setPreviewNull,
+  getPreviewData,
   onSubmit,
   title,
   body,
   actionLabel,
   footer,
   disabled,
-  secondaryAction,
-  secondaryActionLabel,
 }) => {
+  const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(isOpen);
+  console.log(isOpen);
+
+  console.log(showModal);
 
   useEffect(() => {
     setShowModal(isOpen);
@@ -24,28 +30,19 @@ const Modal = ({
     if (disabled) {
       return;
     }
-
     setShowModal(false);
     setTimeout(() => {
-      onClose();
+      dispatch(closeModal());
+      dispatch(setPreviewNull());
     }, 300);
-  }, [onClose, disabled]);
+  }, [closeModal, disabled]);
 
   const handleSubmit = useCallback(() => {
     if (disabled) {
       return;
     }
-
     onSubmit();
   }, [onSubmit, disabled]);
-
-  const handleSecondaryAction = useCallback(() => {
-    if (disabled || !secondaryAction) {
-      return;
-    }
-
-    secondaryAction();
-  }, [secondaryAction, disabled]);
 
   if (!isOpen) {
     return null;
@@ -150,15 +147,7 @@ const Modal = ({
                     w-full
                   "
                 >
-                  {secondaryAction && secondaryActionLabel && (
-                    <Button
-                      disabled={disabled}
-                      label={secondaryActionLabel}
-                      onClick={handleSecondaryAction}
-                      outline
-                    />
-                  )}
-                  <Button
+                  <ModalButton
                     disabled={disabled}
                     label={actionLabel}
                     onClick={handleSubmit}

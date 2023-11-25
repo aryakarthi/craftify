@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import { setOrders } from "../app/slices/orderSlice";
 import { createOrder, getAllOrders } from "../api";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Checkout = () => {
   const user = useSelector((data) => data.user);
@@ -49,7 +50,7 @@ const Checkout = () => {
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    const order_id = uuidv4();
+    // const order_id = uuidv4();
     const shippingDetails = {
       customerName,
       email,
@@ -69,12 +70,12 @@ const Checkout = () => {
       status: "preparing",
     };
 
+    console.log(checkoutData);
+
     createOrder(checkoutData).then((res) => {
-      dispatch(alertSuccess("Order Placed Successfully!"));
+      toast.success("Order Placed Successfully!");
+
       gotoSuccess("/order-success", { replace: true });
-      setTimeout(() => {
-        dispatch(alertNULL());
-      }, 3000);
     });
     getAllOrders().then((data) => {
       dispatch(setOrders(data));

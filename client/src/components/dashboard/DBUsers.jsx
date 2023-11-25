@@ -56,18 +56,6 @@ const DBUsers = () => {
       width: 240,
       renderCell: (params) => params.row?.metadata.creationTime,
     },
-    {
-      field: "creationTime",
-      headerName: "Created at",
-      width: 240,
-      renderCell: (params) => params.row?.metadata.creationTime,
-    },
-    {
-      field: "creationTime",
-      headerName: "Created at",
-      width: 240,
-      renderCell: (params) => params.row?.metadata.creationTime,
-    },
   ];
 
   return (

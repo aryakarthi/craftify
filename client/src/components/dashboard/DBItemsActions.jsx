@@ -30,8 +30,6 @@ const DBItemsActions = ({ params }) => {
             aria-label="delete"
             onClick={() => {
               if (window.confirm("Are you want to delete this product?")) {
-                // toast.success("Product deleted successfully!");
-
                 deleteAProduct(params.row?.product_id).then((res) => {
                   toast.success("Product deleted successfully!");
                   getAllProducts().then((data) => {

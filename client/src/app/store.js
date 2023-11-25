@@ -8,6 +8,8 @@ import cartSlice from "./slices/cartSlice";
 import favSlice from "./slices/favSlice";
 import showCartSlice from "./slices/showCartSlice";
 import orderSlice from "./slices/orderSlice";
+import modalSlice from "./slices/modalSlice";
+import previewSlice from "./slices/previewSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +22,7 @@ export const store = configureStore({
     favItems: favSlice,
     showCart: showCartSlice,
     orders: orderSlice,
+    isModalOpen: modalSlice,
+    previewData: previewSlice,
   },
 });

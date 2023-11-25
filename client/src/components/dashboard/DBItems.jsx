@@ -69,16 +69,6 @@ const DBItems = () => {
       headerName: "Added at",
       width: 240,
     },
-    {
-      field: "added_at",
-      headerName: "Added at",
-      width: 240,
-    },
-    {
-      field: "added_at",
-      headerName: "Added at",
-      width: 240,
-    },
 
     {
       field: "actions",

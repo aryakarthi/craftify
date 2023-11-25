@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const admin = require("firebase-admin");
 const db = admin.firestore();
-const FieldValue = admin.firestore.FieldValue;
+const { v4: uuidv4 } = require("uuid");
 
 db.settings({ ignoreUndefinedProperties: true });
 
@@ -114,9 +114,6 @@ router.post("/addToCart/:user_id/:size", async (req, res) => {
   const userId = req.params.user_id;
   const size = req.params.size;
   const productId = req.body.product_id;
-  // console.log(userId);
-  // console.log(size, typeof size);
-  // console.log(req.body);
 
   try {
     const doc = await db
@@ -311,7 +308,6 @@ router.delete("/removeFromFav/:user_id/:product_id", async (req, res) => {
   console.log(productId);
 
   try {
-    // Check if the record exists before deleting
     const doc = await db
       .collection("favItems")
       .doc(`/${userId}/`)
@@ -322,7 +318,6 @@ router.delete("/removeFromFav/:user_id/:product_id", async (req, res) => {
     console.log(doc);
 
     if (doc.exists) {
-      // Record exists, proceed with deletion
       await db
         .collection("favItems")
         .doc(`/${userId}/`)
@@ -334,29 +329,105 @@ router.delete("/removeFromFav/:user_id/:product_id", async (req, res) => {
         .status(200)
         .send({ success: true, msg: "Record deleted successfully" });
     } else {
-      // Record does not exist
       return res.status(404).send({ success: false, msg: "Record not found" });
     }
   } catch (err) {
-    // Handle any errors
     return res.status(500).send({ success: false, msg: `Error: ${err}` });
   }
+});
 
-  // try {
-  //   await db
-  //     .collection("favItems")
-  //     .doc(`/${userId}/`)
-  //     .collection("items")
-  //     .doc(`/${productId}/`)
-  //     .delete()
-  //     .then((result) => {
-  //       console.log(result);
-  //       return res.status(200).send({ success: true, data: result });
-  //     });
-  // } catch (err) {
-  //   console.error(err);
-  //   return res.send({ success: false, msg: `Error :${err}` });
-  // }
+// create new order
+router.post("/neworder", async (req, res) => {
+  try {
+    const order_id = uuidv4();
+    const data = {
+      order_id: order_id,
+      created_at: req.body.created_at,
+      customer: req.body.customer,
+      items: req.body.items,
+      subTotal: req.body.subTotal,
+      shipCharge: req.body.shipCharge,
+      grandTotal: req.body.grandTotal,
+      paymentMode: req.body.paymentMode,
+      paymentStatus: req.body.paymentStatus,
+      shippingDetails: req.body.shippingDetails,
+      status: req.body.status,
+    };
+
+    const response = await db
+      .collection("orders")
+      .doc(`/${order_id}/`)
+      .set(data);
+
+    deleteCart(req.body.customer.user_id, req.body.items);
+
+    return res.status(200).send({ success: true, data: response });
+  } catch (err) {
+    return res.send({ success: false, msg: `Error :${err}` });
+  }
+});
+
+const deleteCart = async (userId, items) => {
+  items.map(async (data) => {
+    await db
+      .collection("cartItems")
+      .doc(`/${userId}/`)
+      .collection("items")
+      .doc(`/${data.productId}-${data.size}/`)
+      .delete();
+  });
+};
+
+// getall the orders
+router.get("/allorders", async (req, res) => {
+  (async () => {
+    try {
+      let query = db.collection("orders");
+      let response = [];
+      await query.get().then((querysnap) => {
+        let docs = querysnap.docs;
+        docs.map((doc) => {
+          response.push({ ...doc.data() });
+        });
+        return response;
+      });
+      return res.status(200).send({ success: true, data: response });
+    } catch (err) {
+      return res.send({ success: false, msg: `Error :${err}` });
+    }
+  })();
+});
+
+// update the order status
+router.post("/updateOrderStatus/:order_id", async (req, res) => {
+  const order_id = req.params.order_id;
+  const status = req.query.status;
+
+  try {
+    const updatedItem = await db
+      .collection("orders")
+      .doc(`/${order_id}/`)
+      .update({ status });
+    return res.status(200).send({ success: true, data: updatedItem });
+  } catch (error) {
+    return res.send({ success: false, msg: `Error : ${error}` });
+  }
+});
+
+// update the order payment status
+router.post("/updatePayStatus/:order_id", async (req, res) => {
+  const order_id = req.params.order_id;
+  const paymentStatus = req.query.paymentStatus;
+
+  try {
+    const updatedItem = await db
+      .collection("orders")
+      .doc(`/${order_id}/`)
+      .update({ paymentStatus });
+    return res.status(200).send({ success: true, data: updatedItem });
+  } catch (error) {
+    return res.send({ success: false, msg: `Error : ${error}` });
+  }
 });
 
 module.exports = router;
