@@ -1,21 +1,24 @@
 import React from "react";
-import { Modal } from "../components";
+import { Modal, PreviewContent } from "../components";
 import { useSelector } from "react-redux";
 import { closeModal } from "../app/slices/modalSlice";
 import { getPreviewData, setPreviewNull } from "../app/slices/previewSlice";
 
 const PreviewModal = () => {
   const isModalOpen = useSelector((state) => state.isModalOpen);
-  console.log(isModalOpen);
+  const previewData = useSelector((state) => state.previewData);
+  console.log(previewData);
 
   return (
     <>
       <Modal
         isOpen={isModalOpen}
-        closeModal={closeModal}
-        setPreviewNull={setPreviewNull}
-        getPreviewData={getPreviewData}
+        onClose={closeModal}
+        setNull={setPreviewNull}
+        getData={getPreviewData}
         title={"Preview"}
+        data={previewData}
+        Body={PreviewContent}
       />
     </>
   );

@@ -1,16 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { ModalButton } from "../components";
+import { ModalButton, PreviewContent } from "../components";
 import { useDispatch } from "react-redux";
 
+import { ModalCarousel } from "../components";
+
 const Modal = ({
+  data,
   isOpen,
-  closeModal,
-  setPreviewNull,
-  getPreviewData,
+  onClose,
+  setNull,
+  getData,
   onSubmit,
   title,
-  body,
+  Body,
   actionLabel,
   footer,
   disabled,
@@ -18,9 +21,6 @@ const Modal = ({
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(isOpen);
-  console.log(isOpen);
-
-  console.log(showModal);
 
   useEffect(() => {
     setShowModal(isOpen);
@@ -32,10 +32,10 @@ const Modal = ({
     }
     setShowModal(false);
     setTimeout(() => {
-      dispatch(closeModal());
-      dispatch(setPreviewNull());
+      dispatch(onClose());
+      dispatch(setNull());
     }, 300);
-  }, [closeModal, disabled]);
+  }, [onClose, disabled]);
 
   const handleSubmit = useCallback(() => {
     if (disabled) {
@@ -71,12 +71,11 @@ const Modal = ({
           w-full
           md:w-4/6
           lg:w-3/6
-          xl:w-2/5
+          xl:w-2/6
           my-6
           mx-auto 
           h-full 
-          lg:h-auto
-          md:h-auto
+          md:h-3/4
           "
         >
           {/*content*/}
@@ -93,8 +92,7 @@ const Modal = ({
               className="
               translate
               h-full
-              lg:h-auto
-              md:h-auto
+              md:h-full
               border-0 
               rounded-lg 
               shadow-lg 
@@ -102,7 +100,7 @@ const Modal = ({
               flex 
               flex-col 
               w-full 
-              bg-white 
+              bg-white
               outline-none 
               focus:outline-none
             "
@@ -126,7 +124,7 @@ const Modal = ({
                     hover:opacity-70
                     transition
                     absolute
-                    left-9
+                    right-6
                   "
                   onClick={handleClose}
                 >
@@ -135,7 +133,9 @@ const Modal = ({
                 <div className="text-lg font-semibold">{title}</div>
               </div>
               {/*body*/}
-              <div className="relative p-6 flex-auto">{body}</div>
+              <div className="flex flex-col gap-2 overflow-y-scroll p-6">
+                <Body data={data} />
+              </div>
               {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
                 <div
@@ -147,11 +147,11 @@ const Modal = ({
                     w-full
                   "
                 >
-                  <ModalButton
+                  {/* <ModalButton
                     disabled={disabled}
                     label={actionLabel}
                     onClick={handleSubmit}
-                  />
+                  /> */}
                 </div>
                 {footer}
               </div>

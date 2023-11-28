@@ -9,6 +9,8 @@ import {
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { btnClick } from "../animations";
+import { Rating } from "@mui/material";
+
 import toast from "react-hot-toast";
 
 import {
@@ -18,15 +20,19 @@ import {
   getAllCartItems,
   getAllFavItems,
   getAllProducts,
+  getAllUsers,
 } from "../api";
 import { setAllProducts } from "../app/slices/productSlice";
 import { setCartItems } from "../app/slices/cartSlice";
 import { sizes, categoriesOptions } from "../utils/data";
 import { setFavItems } from "../app/slices/favSlice";
+import { avatar } from "../assets";
+import { setAllUsers } from "../app/slices/allUsersSlice";
 
 const PreviewItem = () => {
   const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user);
+  const allUsers = useSelector((state) => state.allUsers);
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -35,12 +41,10 @@ const PreviewItem = () => {
   const [overallRatings, setOverallRatings] = useState(0);
   const [totalRatings, setTotalRatings] = useState(0);
   const [selectedSize, setSelectedSize] = useState("");
-  // console.log(selectedSize);
   const [showError, setShowError] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const getProduct = products?.find((product) => product?.product_id === id);
-  console.log(getProduct);
   const categoryTitle = categoriesOptions?.find(
     (item) => item.value === getProduct?.product_category
   )?.title;
@@ -50,7 +54,6 @@ const PreviewItem = () => {
   const isReviewed = getAllReviews?.some(
     (review) => review?.userId === user?.user_id
   );
-  // console.log(isReviewed);
 
   let sum = getAllReviews?.reduce(
     (total, current) => total + current?.ratingStars,
@@ -69,6 +72,11 @@ const PreviewItem = () => {
     if (!products) {
       getAllProducts().then((data) => {
         dispatch(setAllProducts(data));
+      });
+    }
+    if (!allUsers) {
+      getAllUsers().then((data) => {
+        dispatch(setAllUsers(data));
       });
     }
     const handleResize = () => {
@@ -106,8 +114,9 @@ const PreviewItem = () => {
         getAllProducts().then((data) => {
           dispatch(setAllProducts(data));
         });
+        setRatingStars(null);
+        setReview("");
       });
-      console.log(userReview);
     }
   };
 
@@ -116,10 +125,7 @@ const PreviewItem = () => {
       if (getProduct?.product_category && selectedSize) {
         addNewItemToCart(user?.user_id, getProduct, selectedSize).then(
           (res) => {
-            console.log(res);
             getAllCartItems(user?.user_id).then((items) => {
-              console.log(items);
-
               dispatch(setCartItems(items));
               toast.success("Added to the cart!");
             });
@@ -236,10 +242,68 @@ const PreviewItem = () => {
                 </div>
               )}
             </>
+            <h3 className="text-2xl font-bold text-zinc-700 my-6">
+              Product Ratings & Reviews
+            </h3>
+            {getAllReviews?.length ? (
+              <div className="w-full max-h-[16rem] overflow-y-scroll bg-zinc-200 p-4">
+                {getAllReviews?.map((reviewData, i) => (
+                  <div key={i} className="w-full flex flex-col gap-2 mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-8 h-8 rounded-full shadow-md cursor-pointer overflow-hidden flex items-center justify-center">
+                        <motion.img
+                          className="w-full h-full object-cover"
+                          src={
+                            allUsers?.find(
+                              (user) => user?.uid === reviewData?.userId
+                            )?.photoURL
+                              ? allUsers?.find(
+                                  (user) => user?.uid === reviewData?.userId
+                                )?.photoURL
+                              : avatar
+                          }
+                          whileHover={{ scale: 1.15 }}
+                          referrerPolicy="no-referrer"
+                        />
+                      </span>
+                      <span>
+                        {reviewData?.addedBy ? reviewData?.addedBy : "User"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`text-sm px-2 rounded-lg ${
+                          (reviewData?.ratingStars <= 5 && "bg-emerald-500") ||
+                          (reviewData?.ratingStars <= 4 && "bg-lime-500") ||
+                          (reviewData?.ratingStars <= 3 && "bg-yellow-500") ||
+                          (reviewData?.ratingStars <= 2 && "bg-orange-500") ||
+                          (reviewData?.ratingStars <= 1 && "bg-red-500")
+                        }`}
+                      >
+                        {reviewData?.ratingStars.toFixed(1)}
+                      </span>
+                      <Rating
+                        name="user-ratings"
+                        defaultValue={0}
+                        value={reviewData?.ratingStars}
+                        precision={0.1}
+                        readOnly
+                        size="small"
+                      />
+                    </div>
+                    <p>{reviewData?.review}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <h4 className="font-semibold text-xl text-zinc-700">
+                No reviews found!
+              </h4>
+            )}
           </div>
         </div>
         <div>
-          <h3>Related Products</h3>
+          <h3 className="text-2xl font-bold text-zinc-700 my-4">Related Products</h3>
 
           {relatedProducts?.length > 0 ? (
             <>

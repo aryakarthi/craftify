@@ -22,3 +22,5 @@ export { default as DBUsers } from "./dashboard/DBUsers";
 export { default as Modal } from "./Modal";
 export { default as ModalButton } from "./ModalButton";
 export { default as PreviewModal } from "./PreviewModal";
+export { default as PreviewContent } from "./PreviewContent";
+export { default as ModalCarousel } from "./ModalCarousel";

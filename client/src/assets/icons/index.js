@@ -24,6 +24,8 @@ import {
   MdSettings,
   MdLibraryAdd,
   MdDeleteSweep,
+  MdChevronLeft,
+  MdChevronRight,
 } from "react-icons/md";
 import {
   BsToggles2,
@@ -37,7 +39,7 @@ import { IoFastFood, IoBasket } from "react-icons/io5";
 import { BiChevronsRight, BiChevronLeft } from "react-icons/bi";
 import { HiCurrencyRupee } from "react-icons/hi2";
 import { SlLocationPin } from "react-icons/sl";
-import { GoHeart,GoHeartFill } from "react-icons/go";
+import { GoHeart, GoHeartFill } from "react-icons/go";
 
 export {
   GoHeart,
@@ -66,6 +68,8 @@ export {
   MdViewList,
   MdLibraryAdd,
   MdDeleteSweep,
+  MdChevronLeft,
+  MdChevronRight,
   BsToggles2,
   BsFillBellFill,
   BsExclamationTriangleFill,
