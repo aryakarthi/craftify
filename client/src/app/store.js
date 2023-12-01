@@ -10,6 +10,7 @@ import showCartSlice from "./slices/showCartSlice";
 import orderSlice from "./slices/orderSlice";
 import modalSlice from "./slices/modalSlice";
 import previewSlice from "./slices/previewSlice";
+import activeSlice from "./slices/activeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +25,6 @@ export const store = configureStore({
     orders: orderSlice,
     isModalOpen: modalSlice,
     previewData: previewSlice,
+    active: activeSlice,
   },
 });

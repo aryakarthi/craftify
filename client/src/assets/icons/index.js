@@ -26,6 +26,8 @@ import {
   MdDeleteSweep,
   MdChevronLeft,
   MdChevronRight,
+  MdStar,
+  MdClose,
 } from "react-icons/md";
 import {
   BsToggles2,
@@ -37,6 +39,7 @@ import {
 } from "react-icons/bs";
 import { IoFastFood, IoBasket } from "react-icons/io5";
 import { BiChevronsRight, BiChevronLeft } from "react-icons/bi";
+import { HiMenu } from "react-icons/hi";
 import { HiCurrencyRupee } from "react-icons/hi2";
 import { SlLocationPin } from "react-icons/sl";
 import { GoHeart, GoHeartFill } from "react-icons/go";
@@ -64,6 +67,8 @@ export {
   MdSearch,
   MdDelete,
   MdHome,
+  MdClose,
+  MdStar,
   MdSettings,
   MdViewList,
   MdLibraryAdd,
@@ -80,6 +85,7 @@ export {
   IoBasket,
   BiChevronsRight,
   BiChevronLeft,
+  HiMenu,
   HiCurrencyRupee,
   SlLocationPin,
 };

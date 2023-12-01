@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { btnClick } from "../animations";
 import { Rating } from "@mui/material";
-
+import { MdStar } from "../assets/icons";
 import toast from "react-hot-toast";
 
 import {
@@ -24,7 +24,7 @@ import {
 } from "../api";
 import { setAllProducts } from "../app/slices/productSlice";
 import { setCartItems } from "../app/slices/cartSlice";
-import { sizes, categoriesOptions } from "../utils/data";
+import { sizes, categoriesOptions, msToDateTime } from "../utils/data";
 import { setFavItems } from "../app/slices/favSlice";
 import { avatar } from "../assets";
 import { setAllUsers } from "../app/slices/allUsersSlice";
@@ -246,7 +246,7 @@ const PreviewItem = () => {
               Product Ratings & Reviews
             </h3>
             {getAllReviews?.length ? (
-              <div className="w-full max-h-[16rem] overflow-y-scroll bg-zinc-200 p-4">
+              <div className="w-full max-h-[16rem] overflow-y-scroll p-4 bg-zinc-200 rounded-md">
                 {getAllReviews?.map((reviewData, i) => (
                   <div key={i} className="w-full flex flex-col gap-2 mb-4">
                     <div className="flex items-center gap-2">
@@ -270,9 +270,10 @@ const PreviewItem = () => {
                         {reviewData?.addedBy ? reviewData?.addedBy : "User"}
                       </span>
                     </div>
+                    
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-sm px-2 rounded-lg ${
+                        className={`flex items-center text-sm font-medium px-2 rounded-lg ${
                           (reviewData?.ratingStars <= 5 && "bg-emerald-500") ||
                           (reviewData?.ratingStars <= 4 && "bg-lime-500") ||
                           (reviewData?.ratingStars <= 3 && "bg-yellow-500") ||
@@ -280,7 +281,7 @@ const PreviewItem = () => {
                           (reviewData?.ratingStars <= 1 && "bg-red-500")
                         }`}
                       >
-                        {reviewData?.ratingStars.toFixed(1)}
+                        {reviewData?.ratingStars} <MdStar size={14} />
                       </span>
                       <Rating
                         name="user-ratings"
@@ -291,7 +292,8 @@ const PreviewItem = () => {
                         size="small"
                       />
                     </div>
-                    <p>{reviewData?.review}</p>
+                    <p className="italic ">{reviewData?.review}</p>
+                    <p className="text-sm text-zinc-500 font-medium">Reviewed on {msToDateTime(reviewData?.addedAt)}</p>
                   </div>
                 ))}
               </div>
@@ -303,7 +305,9 @@ const PreviewItem = () => {
           </div>
         </div>
         <div>
-          <h3 className="text-2xl font-bold text-zinc-700 my-4">Related Products</h3>
+          <h3 className="text-2xl font-bold text-zinc-700 my-4">
+            Related Products
+          </h3>
 
           {relatedProducts?.length > 0 ? (
             <>

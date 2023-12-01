@@ -25,3 +25,47 @@ export const sizes = [
   { id: 5, size: "7.0", enabled: true },
   { id: 6, size: "7.5", enabled: true },
 ];
+
+export const msToDateTime = (ms) => {
+  const date = new Date(ms);
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear().toString();
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const seconds = date.getSeconds().toString().padStart(2, "0");
+  return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+};
+
+export const dashboardLinks = [
+  {
+    id: 1,
+    title: "Home",
+    link: "/dashboard/home",
+  },
+  {
+    id: 2,
+    title: "Orders",
+    link: "/dashboard/orders",
+  },
+  {
+    id: 3,
+    title: "Items",
+    link: "/dashboard/items",
+  },
+  {
+    id: 4,
+    title: "AddItem ",
+    link: "/dashboard/newItem",
+  },
+  {
+    id: 5,
+    title: "Users",
+    link: "/dashboard/users",
+  },
+  // {
+  //   id: 6,
+  //   title: "Settings",
+  //   link: "/dashboard/settings",
+  // },
+];

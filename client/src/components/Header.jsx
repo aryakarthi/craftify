@@ -3,7 +3,13 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { avatar, logo } from "../assets";
 import { isActiveStyles, isNotActiveStyles } from "../utils/styles";
 import { motion } from "framer-motion";
-import { MdLogout, MdShoppingCart, GoHeart } from "../assets/icons";
+import {
+  MdLogout,
+  MdShoppingCart,
+  GoHeart,
+  MdClose,
+  HiMenu,
+} from "../assets/icons";
 import { btnClick, slideTop } from "../animations";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth } from "firebase/auth";
@@ -17,9 +23,11 @@ const Header = ({ location }) => {
   const user = useSelector((data) => data?.user);
   const cartItems = useSelector((data) => data?.cartItems);
   const favItems = useSelector((state) => state?.favItems);
+  const active = useSelector((state) => state?.active);
 
   const dispatch = useDispatch();
   const [isMenu, setIsMenu] = useState(false);
+
   const firebaseAuth = getAuth(app);
   const navigate = useNavigate();
   const path = location.pathname;
@@ -72,7 +80,7 @@ const Header = ({ location }) => {
             </ul>
 
             <Link to={"/favourites"} className="relative">
-            <GoHeart className="text-2xl" />
+              <GoHeart className="text-2xl" />
               {favItems?.length > 0 && (
                 <div className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center absolute -top-2 -right-1">
                   <p className="text-primary text-xs font-semibold">
@@ -107,6 +115,7 @@ const Header = ({ location }) => {
               {user ? (
                 <>
                   <div
+                    onClick={() => setIsMenu(!isMenu)}
                     onMouseEnter={() => setIsMenu(true)}
                     className="relative cursor-pointer"
                   >
@@ -161,6 +170,13 @@ const Header = ({ location }) => {
                       </motion.div>
                     )}
                   </div>
+                  {/* hamburger */}
+                  {/* <div className="md:hidden">
+                    <div onClick={() => setToggle(!toggle)}>
+                      {toggle ? <MdClose /> : <HiMenu />}
+                    </div>
+                  </div> */}
+                  {/* hamburger */}
                 </>
               ) : (
                 <>

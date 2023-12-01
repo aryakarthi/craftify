@@ -8,6 +8,8 @@ import { setOrders } from "../../app/slices/orderSlice";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 
+import { CChart } from "@coreui/react-chartjs";
+
 const DBHome = () => {
   const allUsers = useSelector((data) => data.allUsers);
   // console.log(allUsers);
@@ -72,58 +74,57 @@ const DBHome = () => {
   const pieParams = { height: "50%", margin: { right: 5 } };
 
   return (
-    <div className="w-full h-full grid grid-cols-1 xl:grid-cols-2 gap-2">
-      <div className="w-full h-3/4 lg:h-1/2">
+    <div className="w-full h-full grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="w-full">
         <h3 className="text-xl text-zinc-700 font-semibold">
           No of Products: {products?.length}
         </h3>
-        <BarChart className="overflow-x-scroll"
-          sx={{ width: "100%", height: "100%" }}
-          xAxis={[
-            {
-              id: "itemCategories",
-              data: [
-                "Silkthread",
-                "Kundan",
-                "3DKundan",
-                "Multicolor",
-                "Lakshmicoin",
-                "Namebangles",
-              ],
-              scaleType: "band",
-            },
-          ]}
-          series={[
-            {
-              data: [
-                silkthread,
-                kundan,
-                kundan3d,
-                multicolor,
-                lakshmicoin,
-                namebangles,
-              ],
-            },
-          ]}
+        <CChart
+          className="w-full md:w-5/6"
+          type="bar"
+          data={{
+            labels: [
+              "Silkthread",
+              "Kundan",
+              "3DKundan",
+              "Multicolor",
+              "Lakshmicoin",
+              "Namebangles",
+            ],
+            datasets: [
+              {
+                label: "Product Count",
+                backgroundColor: "#FF6969",
+                data: [
+                  silkthread,
+                  kundan,
+                  kundan3d,
+                  multicolor,
+                  lakshmicoin,
+                  namebangles,
+                ],
+              },
+            ],
+          }}
+          labels="products"
         />
       </div>
-      <div className="w-full h-3/4 lg:h-1/2">
+      <div className="w-full">
         <h3 className="text-xl text-zinc-700 font-semibold mb-4">
           No of Orders: {orders?.length}
         </h3>
-        <PieChart
-          sx={{ width: "100%", height: "100%" }}
-          colors={palette}
-          series={[
-            {
-              data: [
-                { value: preparing, label: "Preparing" },
-                { value: cancelled, label: "Cancelled" },
-                { value: dispatched, label: "Dispatched" },
-                { value: delivered, label: "Delivered" },
-              ],
-            },
-          ]}
+        <CChart
+          className="w-full md:w-2/3"
+          type="doughnut"
+          data={{
+            labels: ["Preparing", "Cancelled", "Dispatched", "Delivered"],
+            datasets: [
+              {
+                backgroundColor: ["#FFCB42", "#D80032", "#30A2FF", "#1B9C85"],
+                data: [preparing, cancelled, dispatched, delivered],
+              },
+            ],
+          }}
         />
       </div>
     </div>
