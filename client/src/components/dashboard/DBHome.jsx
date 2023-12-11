@@ -4,10 +4,6 @@ import { getAllUsers, getAllProducts, getAllOrders } from "../../api";
 import { setAllUsers } from "../../app/slices/allUsersSlice";
 import { setAllProducts } from "../../app/slices/productSlice";
 import { setOrders } from "../../app/slices/orderSlice";
-
-import { BarChart } from "@mui/x-charts/BarChart";
-import { PieChart } from "@mui/x-charts/PieChart";
-
 import { CChart } from "@coreui/react-chartjs";
 
 const DBHome = () => {

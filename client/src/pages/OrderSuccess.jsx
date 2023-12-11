@@ -21,7 +21,7 @@ const OrderSuccess = () => {
   return (
     <main className=" w-screen min-h-screen flex items-center justify-start flex-col">
       <div className="w-full flex flex-col items-center justify-center mt-28 px-6 md:px-24 2xl:px-96 gap-8 pb-24">
-        <img src={order_confirmed} className="max-w-sm" alt="" />
+        <img src={order_confirmed} className="w-full max-w-md" alt="" />
 
         <motion.div {...btnClick}>
           <NavLink

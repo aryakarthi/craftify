@@ -40,7 +40,7 @@ const DBSidebar = () => {
       link: "/dashboard/items",
     },
     {
-      title: "AddItem ",
+      title: "Add Item ",
       src: "Calendar",
       icon: <BsDatabaseFillAdd />,
       link: "/dashboard/newItem",
