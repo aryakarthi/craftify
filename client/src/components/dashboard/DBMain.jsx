@@ -14,7 +14,6 @@ import { toggle } from "../../app/slices/toggleSlice";
 
 const DBMain = () => {
   const toggleSidebar = useSelector((data) => data.toggleSidebar);
-  console.log(toggleSidebar);
   const dispatch = useDispatch();
 
   return (

@@ -17,7 +17,6 @@ const DBSidebar = () => {
   const [open, setOpen] = useState(true);
 
   const toggleSidebar = useSelector((data) => data.toggleSidebar);
-  console.log(toggleSidebar);
   const dispatch = useDispatch();
 
   const Menus = [

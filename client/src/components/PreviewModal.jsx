@@ -7,7 +7,6 @@ import { getPreviewData, setPreviewNull } from "../app/slices/previewSlice";
 const PreviewModal = () => {
   const isModalOpen = useSelector((state) => state.isModalOpen);
   const previewData = useSelector((state) => state.previewData);
-  console.log(previewData);
 
   return (
     <>
